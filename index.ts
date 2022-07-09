@@ -7,7 +7,7 @@ const renderer = new THREE.WebGLRenderer({
   alpha: true,
   antialias: true,
 });
-renderer.setSize(window.innerWidth - 16, window.innerHeight - 50 - 16);
+renderer.setSize(window.innerWidth - 16, window.innerHeight - 5 - 16);
 document.body.appendChild(renderer.domElement);
 
 renderer.outputEncoding = THREE.sRGBEncoding;
