@@ -3,7 +3,10 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 import { createMultiMaterialObject } from 'three/examples/jsm/utils/SceneUtils';
 
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({
+  alpha: true,
+  antialias: true,
+});
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
@@ -31,13 +34,22 @@ scene.background = env;
 
 const texLoader = new THREE.TextureLoader();
 
-const supportTexture = texLoader.load(' textures/support.png ');
+const paperTexture = texLoader.load(
+  ' textures/paper.png ',
+  (onLoad) => {
+    console.log('onLoad', onLoad);
+    return onLoad;
+  },
+  (onProgress) => {
+    console.log('onProgress', onProgress);
+  },
+  (onError) => {
+    console.log('onError', onError);
+  }
+);
 
 const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshStandardMaterial({
-  color: 0xffffff,
-  map: supportTexture
-});
+const material = new THREE.MeshBasicMaterial({ map: paperTexture });
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
